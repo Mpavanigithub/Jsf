@@ -1,5 +1,7 @@
 package com.infinite.hib;
 
+import java.util.Date;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -20,35 +22,50 @@ public class TranBook {
 	@Column(name="bookId")
 	private int bookId;
 
+
+	@Column(name="fromdate")
+	private Date fromdate;
+
+
 	public int getTid() {
 		return tid;
 	}
+
 
 	public void setTid(int tid) {
 		this.tid = tid;
 	}
 
+
 	public String getUserName() {
 		return userName;
 	}
+
 
 	public void setUserName(String userName) {
 		this.userName = userName;
 	}
 
+
 	public int getBookId() {
 		return bookId;
 	}
+
 
 	public void setBookId(int bookId) {
 		this.bookId = bookId;
 	}
 
-	@Override
-	public String toString() {
-		return "TranBook [tid=" + tid + ", userName=" + userName + ", bookId=" + bookId + "]";
-	}
-	
-	
 
+	public Date getFromdate() {
+		return fromdate;
+	}
+
+
+	public void setFromdate(Date fromdate) {
+		this.fromdate = fromdate;
+	}
+
+	
+	
 }

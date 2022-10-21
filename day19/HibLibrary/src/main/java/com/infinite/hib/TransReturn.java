@@ -23,44 +23,61 @@ public class TransReturn {
 	@Column(name="bookId")
 	private int bookId;
 	
+	@Column(name="fromdate")
+	private Date fromdate;
+
+	
 	@Column(name="todate")
 	private Date todate;
+
 
 	public int getTid() {
 		return tid;
 	}
 
+
 	public void setTid(int tid) {
 		this.tid = tid;
 	}
+
 
 	public String getUserName() {
 		return userName;
 	}
 
+
 	public void setUserName(String userName) {
 		this.userName = userName;
 	}
+
 
 	public int getBookId() {
 		return bookId;
 	}
 
+
 	public void setBookId(int bookId) {
 		this.bookId = bookId;
 	}
+
+
+	public Date getFromdate() {
+		return fromdate;
+	}
+
+
+	public void setFromdate(Date fromdate) {
+		this.fromdate = fromdate;
+	}
+
 
 	public Date getTodate() {
 		return todate;
 	}
 
+
 	public void setTodate(Date todate) {
 		this.todate = todate;
-	}
-
-	@Override
-	public String toString() {
-		return "TransReturn [tid=" + tid + ", userName=" + userName + ", bookId=" + bookId + ", todate=" + todate + "]";
 	}
 
 	

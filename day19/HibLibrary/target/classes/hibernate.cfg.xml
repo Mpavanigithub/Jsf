@@ -14,6 +14,6 @@
     <mapping class="com.infinite.hib.LibUsers"/>
     <mapping class="com.infinite.hib.Books"/>
     <mapping class="com.infinite.hib.TranBook"/>
-    <mapping class="com.infinite.hib.TranReturn"/>
+    <mapping class="com.infinite.hib.TransReturn"/>
     </session-factory>
 </hibernate-configuration>

@@ -24,6 +24,7 @@
 		 <th>Dept</th>
 		 <th>Total Books</th>
 		 <th> Select </th>
+		 <th>Return</th>
 	    </tr>
 	  <c:forEach var="books" items="${beanDao.searchBooks(searchtype,searchvalue)}">
 	  	<tr>
@@ -38,11 +39,13 @@
 	  				<input type="checkbox" name="bookid" value="${books.id}" />
 	  			</c:if>
 	  		</td>
+	  		
 	  	</tr>
 	  </c:forEach>
 	 </table>
 	 <br/>
 	 <input type='submit' value='Issue Books' >
+	 
 	</form>
 </body>
 </html>

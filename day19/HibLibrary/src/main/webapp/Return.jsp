@@ -9,6 +9,42 @@
 <title>Insert title here</title>
 </head>
 <body>
+<jsp:include page="menu.jsp" />
+<jsp:useBean id="beanDao"
+class="com.infinite.hib.LibraryDAO" />
+<c:set var="user" value="${sessionScope.user}"/>
+<c:set var="books" value="${beanDao.showBooks(user)}"/>
+<form method="get" action="Return.jsp">
+<table border="3" >
+<tr>
+<th>userName</th>
+<th>BookId</th>
+<th>select</th>
+</tr>
+<c:forEach var="books" items="${beanDao.showBooks(user)}">
+<tr>
+<td><c:out value="${books.userName}" /></td>
+<td><c:out value="${books.bookId}" /></td>
+<td>
+<input type="checkbox" name="bookid" value="${books.bookId}"/>
+</td>
+</tr>
 
+</c:forEach>
+
+</table>
+<input type="submit" value="Return" />
+</form>
+<c:forEach var="b" items="${paramValues.bookid}">
+<jsp:useBean id="beanTrans"
+class="com.infinite.hib.TransReturn" />
+<jsp:setProperty property="bookId" name="beanTrans" value="${b}" />
+<jsp:setProperty property="userName" name="beanTrans"
+value="${sessionScope.user}" />
+
+<c:out value="${beanDao.returnBookNew(beanTrans)}" />
+</c:forEach>
+	
+		
 </body>
 </html>

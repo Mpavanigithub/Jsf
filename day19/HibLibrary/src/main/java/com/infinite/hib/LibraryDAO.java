@@ -1,6 +1,7 @@
 package com.infinite.hib;
 
 
+import java.util.Date;
 import java.util.List;
 
 import org.hibernate.Criteria;
@@ -12,6 +13,36 @@ import org.hibernate.criterion.Restrictions;
 public class LibraryDAO {
       
 	SessionFactory sessionFactory;
+	
+	public List<TranBook> showBooks(String user){
+		sessionFactory = SessionHelper.getConnection();
+		Session session = sessionFactory.openSession();
+		Criteria cr = session.createCriteria(TranBook.class);
+		cr.add(Restrictions.eq("userName", user));
+		return cr.list();
+		}
+		public TranBook searchIssue(String userName, int bookId){
+		sessionFactory = SessionHelper.getConnection();
+		Session session = sessionFactory.openSession();
+		Criteria cr = session.createCriteria(TranBook.class);
+		cr.add(Restrictions.eq("bookId", bookId));
+		cr.add(Restrictions.eq("userName", userName));
+		List<TranBook> list = cr.list();
+		return list.get(0);
+		}
+		public String returnBookNew(TransReturn tranBookRetured) {
+		sessionFactory = SessionHelper.getConnection();
+		Session session = sessionFactory.openSession();
+		TranBook tranBook = searchIssue(tranBookRetured.getUserName(), tranBookRetured.getBookId());
+		Date fromDate = tranBook.getFromdate();
+		tranBookRetured.setFromdate(fromDate);
+		java.sql.Date sqlDate = new java.sql.Date(new java.util.Date().getTime());
+		tranBookRetured.setFromdate(sqlDate);
+		Transaction transaction = session.beginTransaction();
+		session.save(tranBookRetured);
+		transaction.commit();
+		return "Book with ID " +tranBookRetured.getBookId() + " Returned Successfully...";
+		}
 	
 	public String issueBook(TranBook tranBook) {
 		sessionFactory = SessionHelper.getConnection();
@@ -82,6 +113,24 @@ public class LibraryDAO {
 		cr.add(Restrictions.eq("passWord", passWord));
 		List<LibUsers> listUsers = cr.list();
 		return listUsers.size();
+	}
+	public String returnBook(TransReturn transReturn) {
+		sessionFactory = SessionHelper.getConnection();
+		Session session = sessionFactory.openSession();
+		if ((transReturn.getBookId())==1) {
+			return "Book with id " +transReturn.getBookId() + " Already Return...";
+		} 
+		Transaction tran = session.beginTransaction();
+		session.save(transReturn);
+		tran.commit();
+		session.close();
+		session = sessionFactory.openSession();
+		Books book = searchById(transReturn.getBookId());
+		book.setTotalBooks(book.getTotalBooks()+1);
+		tran=session.beginTransaction();
+		session.saveOrUpdate(book);
+		tran.commit();
+		return "Book with Id " +transReturn.getBookId() + " Return Successfully...";
 	}
 
 	
